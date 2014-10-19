@@ -1,4 +1,4 @@
-# Docker container for creating a chromedriver server
+# Docker container for creating a ChromeDriver server
 
 Includes
 
