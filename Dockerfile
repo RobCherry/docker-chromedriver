@@ -15,16 +15,14 @@ RUN useradd automation --shell /bin/bash --create-home
 # Update the repositories
 # Upgrade packages
 # Install utilities
-# Install XVFB
+# Install XVFB and TinyWM
 # Install fonts
-# Install Fluxbox (window manager)
 # Install Python
 RUN apt-get -yqq update && \
     apt-get -yqq upgrade && \
     apt-get -yqq install curl unzip && \
-    apt-get -yqq install xvfb && \
+    apt-get -yqq install xvfb tinywm && \
     apt-get -yqq install fonts-ipafont-gothic xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic && \
-    apt-get -yqq install fluxbox && \
     apt-get -yqq install python && \
     rm -rf /var/lib/apt/lists/*
 
@@ -66,4 +64,4 @@ EXPOSE 4444
 
 VOLUME [ "/var/log/supervisor" ]
 
-CMD ["/usr/local/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+CMD ["/usr/local/bin/supervisord", "-c", "/etc/supervisord.conf"]

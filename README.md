@@ -24,7 +24,7 @@ docker build -t "robcherry/docker-chromedriver:local" .
 You can also pull the final built image from docker:
 
 ```
-docker pull -t "robcherry/docker-chromedriver:latest" robcherry/docker-chromedriver
+docker pull robcherry/docker-chromedriver:latest
 ```
 
 ## Usage
