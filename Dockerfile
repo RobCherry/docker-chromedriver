@@ -53,6 +53,7 @@ RUN dpkg-divert --add --rename --divert /opt/google/chrome/google-chrome.real /o
     chmod 755 /opt/google/chrome/google-chrome
 
 # Configure Supervisor 
+ADD ./etc/supervisord.conf /etc/
 ADD ./etc/supervisor /etc/supervisor
 
 # Default configuration
