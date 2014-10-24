@@ -40,3 +40,5 @@ If you want to restrict the ports to your local environment, you can do so using
 ```
 docker run --name chromedriver -p 127.0.0.1::4444 robcherry/docker-chromedriver:latest
 ```
+
+ChromeDrive restricts access to local connections by default.  To allow external connections, you can pass in a custom `CHROMEDRIVER_WHITELISTED_IPS` environment variable.  By default, this is set to `127.0.0.1`, but this can by any comma separated list of IP addresses.  Setting the value as empty will allow all remote connections.
