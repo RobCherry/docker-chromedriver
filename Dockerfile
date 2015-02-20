@@ -5,8 +5,7 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV DEBCONF_NONINTERACTIVE_SEEN true
 
 # Set timezone
-ENV TZ "US/Eastern"
-RUN echo $TZ > /etc/timezone && \
+RUN echo "US/Eastern" > /etc/timezone && \
     dpkg-reconfigure --frontend noninteractive tzdata
 
 # Create a default user
