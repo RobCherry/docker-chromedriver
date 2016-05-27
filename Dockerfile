@@ -1,4 +1,4 @@
-FROM debian:wheezy
+FROM debian:jessie
 MAINTAINER Rob Cherry
 
 ENV DEBIAN_FRONTEND noninteractive
