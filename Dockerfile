@@ -12,7 +12,6 @@ RUN echo "US/Eastern" > /etc/timezone && \
 RUN useradd automation --shell /bin/bash --create-home
 
 # Update the repositories
-# Upgrade packages
 # Install utilities
 # Install XVFB and TinyWM
 # Install fonts
