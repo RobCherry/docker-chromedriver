@@ -18,7 +18,6 @@ RUN useradd automation --shell /bin/bash --create-home
 # Install fonts
 # Install Python
 RUN apt-get -yqq update && \
-    apt-get -yqq upgrade && \
     apt-get -yqq install curl unzip && \
     apt-get -yqq install xvfb tinywm && \
     apt-get -yqq install fonts-ipafont-gothic xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic && \
@@ -44,12 +43,6 @@ RUN curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-ke
     apt-get -yqq update && \
     apt-get -yqq install google-chrome-stable && \
     rm -rf /var/lib/apt/lists/*
-
-# Disable the SUID sandbox so that Chrome can launch without being in a privileged container.
-# One unfortunate side effect is that `google-chrome --help` will no longer work.
-RUN dpkg-divert --add --rename --divert /opt/google/chrome/google-chrome.real /opt/google/chrome/google-chrome && \
-    echo "#!/bin/bash\nexec /opt/google/chrome/google-chrome.real --disable-setuid-sandbox \"\$@\"" > /opt/google/chrome/google-chrome && \
-    chmod 755 /opt/google/chrome/google-chrome
 
 # Configure Supervisor
 ADD ./etc/supervisord.conf /etc/
