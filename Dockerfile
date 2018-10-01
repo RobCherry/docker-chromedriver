@@ -1,6 +1,10 @@
-FROM debian:jessie
-MAINTAINER Rob Cherry
+ARG ARCH=amd64
+FROM debian:jessie AS base-amd64
 
+# For some super weird reasons the official arm32v6 repo does not support debian but only alpine backed stuff
+FROM armhf/debian:jessie AS base-arm32v6
+
+FROM base-${ARCH} as build
 ENV DEBIAN_FRONTEND noninteractive
 ENV DEBCONF_NONINTERACTIVE_SEEN true
 
@@ -54,6 +58,7 @@ ENV CHROMEDRIVER_PORT 4444
 ENV CHROMEDRIVER_WHITELISTED_IPS "127.0.0.1"
 ENV CHROMEDRIVER_URL_BASE ''
 ENV CHROMEDRIVER_EXTRA_ARGS ''
+MAINTAINER Rob Cherry
 
 EXPOSE 4444
 
