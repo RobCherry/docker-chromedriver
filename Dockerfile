@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM debian:stretch
 MAINTAINER Rob Cherry
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -9,16 +9,19 @@ RUN echo "US/Eastern" > /etc/timezone && \
     dpkg-reconfigure --frontend noninteractive tzdata
 
 # Create a default user
-RUN useradd automation --shell /bin/bash --create-home
+RUN groupadd --system automation && \
+    useradd --system --create-home --gid automation --groups audio,video automation && \
+    mkdir --parents /home/automation/reports && \
+    chown --recursive automation:automation /home/automation
 
 # Update the repositories
+# Install dependencies
 # Install utilities
-# Install XVFB and TinyWM
 # Install fonts
 # Install Python
 RUN apt-get -yqq update && \
+    apt-get -yqq install gnupg2 && \
     apt-get -yqq install curl unzip && \
-    apt-get -yqq install xvfb tinywm && \
     apt-get -yqq install fonts-ipafont-gothic xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic && \
     apt-get -yqq install python && \
     rm -rf /var/lib/apt/lists/*
@@ -48,8 +51,6 @@ ADD ./etc/supervisord.conf /etc/
 ADD ./etc/supervisor /etc/supervisor
 
 # Default configuration
-ENV DISPLAY :20.0
-ENV SCREEN_GEOMETRY "1440x900x24"
 ENV CHROMEDRIVER_PORT 4444
 ENV CHROMEDRIVER_WHITELISTED_IPS "127.0.0.1"
 ENV CHROMEDRIVER_URL_BASE ''
