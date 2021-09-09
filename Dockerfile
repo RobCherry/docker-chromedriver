@@ -26,12 +26,11 @@ RUN apt-get -yqq update && \
     apt-get -yqq install curl unzip && \
     apt-get -yqq install xvfb tinywm && \
     apt-get -yqq install fonts-ipafont-gothic xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic && \
-    apt-get -yqq install python && \
+    apt-get -yqq install python python-pip && \
     rm -rf /var/lib/apt/lists/*
 
 # Install Supervisor
-RUN curl -sS -o - https://bootstrap.pypa.io/ez_setup.py | python && \
-    easy_install -q supervisor
+RUN pip install supervisor
 
 # Install Chrome WebDriver
 RUN CHROMEDRIVER_VERSION=`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE` && \
